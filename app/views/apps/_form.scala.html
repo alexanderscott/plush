@@ -4,9 +4,9 @@
 
 @implicitFieldConstructor = @{ FieldConstructor(fieldConstructorTemplate.f) }
 
-@action = @{ app map{ a => routes.Apps.update(a.key) } getOrElse routes.Apps.create }
+@action = @{ app map{ a => routes.AppsController.update(a.key) } getOrElse routes.AppsController.create }
 @submitLabel = @{ app map { a => "Update" } getOrElse "Create" }
-@cancelRoute = @{ app map { a => routes.Apps.show(a.key) } getOrElse routes.Apps.index }
+@cancelRoute = @{ app map { a => routes.AppsController.show(a.key) } getOrElse routes.AppsController.index }
 
 @form(action = action, 'enctype -> "multipart/form-data") {
   <dl id="new-app">

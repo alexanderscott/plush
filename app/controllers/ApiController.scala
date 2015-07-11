@@ -7,7 +7,7 @@ import play.api.libs.json._
 
 import models._
 
-object Api extends Controller {
+trait ApiController extends Controller {
 
   def BaseApiAction[A](bp: BodyParser[A], securityCheck: (App, String) => Boolean)(f: (Request[A], App) => SimpleResult): Action[A] = {
     Action(bp) { request =>
@@ -119,3 +119,5 @@ object Api extends Controller {
   }
 
 }
+
+object ApiController extends Controller with ApiController

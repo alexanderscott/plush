@@ -30,7 +30,7 @@
 
       @if(app.isIosEnabled) {
         <p>The message will be sent to @DeviceToken.countAllByAppKey(app.key) iOS users.</p>
-        @form(routes.Push.sendBroadcast(app.key)) {
+        @form(routes.PushController.sendBroadcast(app.key)) {
           <input type="hidden" name="type" value="ios">
           <dl id="app-broadcast">
             @inputText(iosBroadcastForm("badge"), '_label -> "Badge")
@@ -38,13 +38,13 @@
             @inputText(iosBroadcastForm("sound"), '_label -> "Sound")
             <dd>
               <input type="submit" value="Send broadcast"> or
-              <a href="@routes.Apps.show(app.key)">Cancel</a>
+              <a href="@routes.AppsController.show(app.key)">Cancel</a>
             </dd>
           </dl>
         }
       } else {
         <p>Push notifications are disabled for the iOS platform. Please verify the certificate and its validity.</p>
-        <p><a href="@routes.Apps.show(app.key)">Back to @app.name</a></p>
+        <p><a href="@routes.AppsController.show(app.key)">Back to @app.name</a></p>
       }
     </div>
     <div id="fragment-2">
@@ -52,20 +52,20 @@
 
       @if(app.isGcmEnabled) {
         <p>The message will be sent to @Registration.countAllByAppKey(app.key) Android users.</p>
-        @form(routes.Push.sendBroadcast(app.key)) {
+        @form(routes.PushController.sendBroadcast(app.key)) {
           <input type="hidden" name="type" value="gcm">
           <dl id="app-broadcast">
             @inputText(gcmBroadcastForm("extra_key"), '_label -> "Extra key")
             @inputText(gcmBroadcastForm("extra_value"), '_label -> "Extra value")
             <dd>
               <input type="submit" value="Send broadcast"> or
-              <a href="@routes.Apps.show(app.key)">Cancel</a>
+              <a href="@routes.AppsController.show(app.key)">Cancel</a>
             </dd>
           </dl>
         }
       } else {
         <p>Push notifications are disabled for the Android platform. Please verify the GCM API Key.</p>
-        <p><a href="@routes.Apps.show(app.key)">Back to @app.name</a></p>
+        <p><a href="@routes.AppsController.show(app.key)">Back to @app.name</a></p>
       }
     </div>
   </div>

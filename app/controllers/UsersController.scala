@@ -8,7 +8,7 @@ import play.api.mvc._
 import models._
 import views._
 
-object Users extends Controller {
+trait UsersController extends Controller {
 
   val loginForm = Form(
     tuple(
@@ -30,7 +30,7 @@ object Users extends Controller {
   )
 
   def index = Action {
-    Redirect(routes.Users.login)
+    Redirect(routes.UsersController.login)
   }
 
   def login = Action { implicit request =>
@@ -45,14 +45,14 @@ object Users extends Controller {
         request.session.get("uriBeforeLogin") map { uri =>
           Redirect(uri).withSession(session - "uriBeforeLogin" + username)
         } getOrElse {
-          Redirect(routes.Apps.index).withSession(session + username)
+          Redirect(routes.AppsController.index).withSession(session + username)
         }
       }
     )
   }
 
   def logout = Action { implicit request =>
-    Redirect(routes.Users.login).withSession(session - Security.username).flashing("success" -> "You are now logged out")
+    Redirect(routes.UsersController.login).withSession(session - Security.username).flashing("success" -> "You are now logged out")
   }
 
   def add = Action { implicit request =>
@@ -65,7 +65,7 @@ object Users extends Controller {
       values => {
         val (email, password, passwordConfirmation) = values
         User.create(email, password) match {
-          case true => Redirect(routes.Apps.index).withSession(Security.username -> email)
+          case true => Redirect(routes.AppsController.index).withSession(Security.username -> email)
           case false => InternalServerError
         }
       }
@@ -74,13 +74,15 @@ object Users extends Controller {
 
 }
 
+object UsersController extends Controller with UsersController
+
 trait Secured {
 
   def username(request: RequestHeader) =
     request.session.get(Security.username)
 
   def onUnauthorized(request: RequestHeader) =
-    Results.Redirect(routes.Users.login).withSession("uriBeforeLogin" -> request.uri).flashing("error" -> "Login required")
+    Results.Redirect(routes.UsersController.login).withSession("uriBeforeLogin" -> request.uri).flashing("error" -> "Login required")
 
   def withAuth(f: => String => Request[AnyContent] => SimpleResult) =
     withAuth[AnyContent](BodyParsers.parse.anyContent)(f)

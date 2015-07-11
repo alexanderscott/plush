@@ -15,7 +15,7 @@
 @main("New user", javascripts = javascripts) {
   <h2>New user</h2>
   @_formErrors(userForm)
-  @form(action = routes.Users.create) {
+  @form(action = routes.UsersController.create) {
     <dl id="users-create">
       @inputText(userForm("email"), '_label -> "E-mail")
       @inputPassword(userForm("password"), '_label -> "Password")

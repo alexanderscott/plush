@@ -9,7 +9,7 @@ import play.api.libs.json._
 import models._
 import views._
 
-object Push extends Controller with Secured {
+trait PushController extends Controller with Secured {
 
   val iosBroadcastForm = Form(
     tuple(
@@ -44,7 +44,7 @@ object Push extends Controller with Secured {
               val payloadMap = Json.obj("badge" -> badge, "alert" -> alert, "sound" -> sound).value filter { pair => pair._2 != JsNull }
               val payload = JsObject(payloadMap.toSeq)
               models.Push.sendIosBroadcast(app, payload)
-              Redirect(routes.Apps.show(appKey)).flashing("success" -> "The broadcast notification is being sent")
+              Redirect(routes.AppsController.show(appKey)).flashing("success" -> "The broadcast notification is being sent")
             }
           )
         }
@@ -54,7 +54,7 @@ object Push extends Controller with Secured {
             values => {
               val (extraKey, extraValue) = values
               models.Push.sendGcmBroadcast(app, Json.obj("data" -> Json.obj(extraKey -> extraValue)))
-              Redirect(routes.Apps.show(appKey)).flashing("success" -> "The broadcast notification is being sent")
+              Redirect(routes.AppsController.show(appKey)).flashing("success" -> "The broadcast notification is being sent")
             }
           )
         }
@@ -64,3 +64,6 @@ object Push extends Controller with Secured {
   }
 
 }
+
+object PushController extends Controller with PushController
+

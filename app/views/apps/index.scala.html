@@ -7,10 +7,10 @@
     <ul id="apps">
       @for(app <- apps) {
         <li>
-          <a href="@routes.Apps.show(app.key)">
+          <a href="@routes.AppsController.show(app.key)">
             <div class="app-icon">
               @if(app.hasIcon) {
-                <img src="@routes.Apps.icon(app.key)">
+                <img src="@routes.AppsController.icon(app.key)">
               } else {
                 <img src="@routes.Assets.at("images/app_icon.png")">
               }
@@ -26,7 +26,7 @@
   }
 
   <p>
-    <a href="@routes.Apps.add">Create an application</a>
+    <a href="@routes.AppsController.add">Create an application</a>
   </p>
 
 }

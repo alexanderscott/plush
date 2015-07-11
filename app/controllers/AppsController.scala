@@ -9,7 +9,7 @@ import play.api.libs._
 import models._
 import views._
 
-object Apps extends Controller with Secured {
+trait AppsController extends Controller with Secured {
 
   // TODO: certificate validation
   val appForm = Form(
@@ -46,7 +46,7 @@ object Apps extends Controller with Secured {
           case Some(key) => { App.findByKey(key) map { app =>
               processIcon(app)
               moveCertificate(app)
-              Redirect(routes.Apps.show(app.key)).flashing("success" -> "Application successfully created")
+              Redirect(routes.AppsController.show(app.key)).flashing("success" -> "Application successfully created")
             }
           } getOrElse InternalServerError
           case _ => InternalServerError
@@ -84,7 +84,7 @@ object Apps extends Controller with Secured {
                   attrs.get("debugMode").get != app.debugMode) {
                 models.Push.stopIosWorkers(app)
               }
-              Redirect(routes.Apps.show(app.key)).flashing("success" -> "Application successfully updated")
+              Redirect(routes.AppsController.show(app.key)).flashing("success" -> "Application successfully updated")
             }
             case false => InternalServerError
           }
@@ -96,7 +96,7 @@ object Apps extends Controller with Secured {
   def delete(key: String) = withAuth { username => implicit request =>
     App.findByKey(key) map { app =>
       app.delete match {
-        case true => Redirect(routes.Apps.index).flashing("success" -> "Application successfully deleted")
+        case true => Redirect(routes.AppsController.index).flashing("success" -> "Application successfully deleted")
         case false => InternalServerError
       }
     } getOrElse NotFound
@@ -131,3 +131,6 @@ object Apps extends Controller with Secured {
       }
     }
 }
+
+
+object AppsController extends Controller with AppsController

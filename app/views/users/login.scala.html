@@ -15,7 +15,7 @@
 @main("Login", javascripts = javascripts) {
   <h2>Login</h2>
   @_formErrors(loginForm)
-  @form(action = routes.Users.authenticate) {
+  @form(action = routes.UsersController.authenticate) {
     <dl id="login">
       @inputText(loginForm("email"), '_label -> "E-mail")
       @inputPassword(loginForm("password"), '_label -> "Password")

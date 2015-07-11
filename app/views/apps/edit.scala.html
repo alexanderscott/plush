@@ -7,7 +7,7 @@
   @_formErrors(appForm)
   @_form(Some(app), appForm)
 
-  @form(action = routes.Apps.delete(app.key), 'onsubmit -> "return confirm('Really?')") {
+  @form(action = routes.AppsController.delete(app.key), 'onsubmit -> "return confirm('Really?')") {
     <div class="danger-zone">
       <h3>Danger Zone</h3>
       <h4>Delete this application</h4>

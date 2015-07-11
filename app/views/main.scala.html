@@ -15,7 +15,7 @@
 <body>
 <div id="header">
   <div id="title">
-    <h1><a href="@routes.Apps.index">plush</a></h1>
+    <h1><a href="@routes.AppsController.index">plush</a></h1>
     <p class="slogan">Push notifications for mobile apps</p>
   </div>
 </div>
@@ -23,8 +23,8 @@
 <div id="topmenu">
   <p>
     <strong class="hide">Main menu:</strong>
-    <a class="active" href="@routes.Apps.index">My applications</a><span class="hide"> | </span>
-    <a href="@routes.Users.logout">Log out</a>
+    <a class="active" href="@routes.AppsController.index">My applications</a><span class="hide"> | </span>
+    <a href="@routes.UsersController.logout">Log out</a>
   </p>
 </div>
 
@@ -66,7 +66,7 @@
 </div>
 
 <div id="footer">
-  <p>Copyright &copy; 2012 <a href="@routes.Apps.index">Philippe Jayet</a> | Template design by <a href="http://andreasviklund.com/">Andreas Viklund</a></p>
+  <p>Copyright &copy; 2012 <a href="@routes.AppsController.index">Philippe Jayet</a> | Template design by <a href="http://andreasviklund.com/">Andreas Viklund</a></p>
 </div>
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.7.2.min.js")"></script>

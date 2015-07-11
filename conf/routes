@@ -3,45 +3,45 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Apps.index
+GET     /                           controllers.AppsController.index
 
 # API
-PUT     /api/device_tokens/:value   controllers.Api.createDeviceToken(value: String)
-DELETE  /api/device_tokens/:value   controllers.Api.deleteDeviceToken(value: String)
-PUT     /api/registrations/:value   controllers.Api.createRegistration(value: String)
-DELETE  /api/registrations/:value   controllers.Api.deleteRegistration(value: String)
-POST    /api/push                   controllers.Api.push
-POST    /api/push/broadcast         controllers.Api.pushBroadcast
+PUT     /api/device_tokens/:value   controllers.ApiController.createDeviceToken(value: String)
+DELETE  /api/device_tokens/:value   controllers.ApiController.deleteDeviceToken(value: String)
+PUT     /api/registrations/:value   controllers.ApiController.createRegistration(value: String)
+DELETE  /api/registrations/:value   controllers.ApiController.deleteRegistration(value: String)
+POST    /api/push                   controllers.ApiController.push
+POST    /api/push/broadcast         controllers.ApiController.pushBroadcast
 
 # Users
-GET     /users                      controllers.Users.index
-GET     /users/login                controllers.Users.login
-POST    /users/login                controllers.Users.authenticate
-GET     /users/logout               controllers.Users.logout
-GET     /users/add                  controllers.Users.add
-POST    /users/create               controllers.Users.create
+GET     /users                      controllers.UsersController.index
+GET     /users/login                controllers.UsersController.login
+POST    /users/login                controllers.UsersController.authenticate
+GET     /users/logout               controllers.UsersController.logout
+GET     /users/add                  controllers.UsersController.add
+POST    /users/create               controllers.UsersController.create
 
 # Applications
-GET     /apps/add                   controllers.Apps.add
-POST    /apps/create                controllers.Apps.create
-GET     /apps/:key                  controllers.Apps.show(key: String)
-GET     /apps/:key/edit             controllers.Apps.edit(key: String)
-POST    /apps/:key/update           controllers.Apps.update(key: String)
-POST    /apps/:key/delete           controllers.Apps.delete(key: String)
-GET     /apps/:key/icon.png         controllers.Apps.icon(key: String)
+GET     /apps/add                   controllers.AppsController.add
+POST    /apps/create                controllers.AppsController.create
+GET     /apps/:key                  controllers.AppsController.show(key: String)
+GET     /apps/:key/edit             controllers.AppsController.edit(key: String)
+POST    /apps/:key/update           controllers.AppsController.update(key: String)
+POST    /apps/:key/delete           controllers.AppsController.delete(key: String)
+GET     /apps/:key/icon.png         controllers.AppsController.icon(key: String)
 
 # Device tokens
-GET     /apps/:key/device_tokens    controllers.DeviceTokens.index(key: String, offset: Int ?= 0, count: Int ?= 50)
+GET     /apps/:key/device_tokens    controllers.DeviceTokensController.index(key: String, offset: Int ?= 0, count: Int ?= 50)
 
 # Registrations
-GET     /apps/:key/registrations    controllers.Registrations.index(key: String, offset: Int ?= 0, count: Int ?= 50)
+GET     /apps/:key/registrations    controllers.RegistrationsController.index(key: String, offset: Int ?= 0, count: Int ?= 50)
 
 # Events
-GET     /apps/:key/events           controllers.Events.index(key: String, offset: Int ?= 0, count: Int ?= 25)
+GET     /apps/:key/events           controllers.EventsController.index(key: String, offset: Int ?= 0, count: Int ?= 25)
 
 # Push
-GET     /push/broadcast/:key        controllers.Push.broadcast(key: String)
-POST    /push/broadcast/:key        controllers.Push.sendBroadcast(key: String)
+GET     /push/broadcast/:key        controllers.PushController.broadcast(key: String)
+POST    /push/broadcast/:key        controllers.PushController.sendBroadcast(key: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

@@ -6,7 +6,7 @@ import play.api.mvc._
 import models._
 import views._
 
-object Registrations extends Controller with Secured {
+trait RegistrationsController extends Controller with Secured {
 
   def index(appKey: String, offset: Int, count: Int) = withAuth { username => implicit request =>
     App.findByKey(appKey).map { app =>
@@ -16,3 +16,5 @@ object Registrations extends Controller with Secured {
   }
 
 }
+
+object RegistrationsController extends Controller with RegistrationsController
