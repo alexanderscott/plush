@@ -8,7 +8,7 @@ trait RedisConnection {
 
 }
 
-trait RedisModel extends RedisConnection {
+trait RedisCaching extends RedisConnection {
 
   def createOrUpdateHash(key: String, hash: Map[String, Any]) = {
     val noneFields = noneFieldsFromMap(hash)

@@ -11,7 +11,7 @@ case class DeviceToken(appKey: String, value: String, lastRegistrationDate: Date
 
 }
 
-object DeviceToken extends RedisConnection {
+object DeviceToken extends RedisCaching {
 
   def findAllByAppKey(appKey: String, limit: Option[(Int, Int)] = None) = {
     def iterate(result: Iterable[Option[String]], acc: List[DeviceToken]): List[DeviceToken] = result match {
@@ -27,13 +27,15 @@ object DeviceToken extends RedisConnection {
     result map (iterate(_, List())) getOrElse List()
   }
 
-  def findByAppKeyAndValue(appKey: String, value: String) =
+  def findByAppKeyAndValue(appKey: String, value: String) = {
     redis.get("device_token:" + appKey + ":" + value.toUpperCase) map { time =>
       Some(DeviceToken(appKey, value, new Date(time.toLong)))
     } getOrElse None
+  }
 
-  def countAllByAppKey(appKey: String): Long =
+  def countAllByAppKey(appKey: String): Long = {
     redis.scard("app:" + appKey + ":device_tokens").getOrElse(0)
+  }
 
   def create(appKey: String, value: String): Option[DeviceToken] = {
     val time = new Date().getTime()

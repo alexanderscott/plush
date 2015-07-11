@@ -52,7 +52,7 @@ case class App(userId: Long, name: String, key: String, secret: String, masterSe
 
 }
 
-object App extends RedisModel {
+object App extends RedisCaching {
 
   def fromMap(attrs: Map[String, String]): App = {
     App(attrs.getOrElse("userId", "0").toLong,

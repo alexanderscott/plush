@@ -11,7 +11,7 @@ case class Registration(appKey: String, value: String, lastRegistrationDate: Dat
 
 }
 
-object Registration extends RedisConnection {
+object Registration extends RedisCaching {
 
   def findAllByAppKey(appKey: String, limit: Option[(Int, Int)] = None) = {
     def iterate(result: Iterable[Option[String]], acc: List[Registration]): List[Registration] = result match {
